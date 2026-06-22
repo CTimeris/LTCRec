@@ -5,23 +5,19 @@ from .base import *
 
 import torch
 import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-
-import json
-import numpy as np
-from abc import *
-from pathlib import Path
 
 
-class CFCTrainer(BaseTrainer):
+def is_ode_model(args):
+    return getattr(args, 'model_code', 'ltcrec') == 'ltcrec_ode' or getattr(args, 'use_ltc', False)
+
+
+class LTCRecTrainer(BaseTrainer):
     def __init__(self, args, model, train_loader, val_loader, test_loader, export_root, use_wandb):
+        args.weight_decay = 1e-5
+        if is_ode_model(args):
+            args.lr = 1e-5
         super().__init__(args, model, train_loader, val_loader, test_loader, export_root, use_wandb)
         self.ce = nn.CrossEntropyLoss(ignore_index=0)
-        if args.use_ltc:
-            self.optimizer = optim.AdamW(model.parameters(), lr=1e-5, weight_decay=1e-5)    # 液态网络对学习率敏感
-        else:
-            self.optimizer = optim.AdamW(model.parameters(), lr=args.lr, weight_decay=1e-5)
 
     def calculate_loss(self, batch):
         seqs, labels, timespans = batch  # 接收时间间隔

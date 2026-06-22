@@ -51,11 +51,15 @@ class BaseTrainer(metaclass=ABCMeta):
             )
             writer = wandb
         else:
-            from torch.utils.tensorboard import SummaryWriter
-            writer = SummaryWriter(
-                log_dir=Path(self.export_root).joinpath('logs'),
-                comment=self.args.model_code+'_'+self.args.dataset_code,
-            )
+            try:
+                from torch.utils.tensorboard import SummaryWriter
+                writer = SummaryWriter(
+                    log_dir=Path(self.export_root).joinpath('logs'),
+                    comment=self.args.model_code+'_'+self.args.dataset_code,
+                )
+            except ImportError:
+                print('TensorBoard is not installed. Skip scalar logging.')
+                writer = NoOpWriter()
         self.val_loggers, self.test_loggers = self._create_loggers()
         self.logger_service = LoggerService(
             self.args, writer, self.val_loggers, self.test_loggers, use_wandb)
@@ -246,3 +250,11 @@ class BaseTrainer(metaclass=ABCMeta):
             STATE_DICT_KEY: self.model.state_dict(),
             OPTIMIZER_STATE_DICT_KEY: self.optimizer.state_dict(),
         }
+
+
+class NoOpWriter:
+    def add_scalar(self, *args, **kwargs):
+        pass
+
+    def close(self):
+        pass

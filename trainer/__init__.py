@@ -1,1 +1,1 @@
-from .cfc_ts_trainer import *
+from .ltcrec_trainer import *
