@@ -105,7 +105,7 @@ parser.add_argument('--max_time_span', type=float, default=0.0)
 # device #
 parser.add_argument('--device', type=str, default='cuda', choices=['cpu', 'cuda'])
 # optimizer & lr#
-parser.add_argument('--num_epochs', type=int, default=200)
+parser.add_argument('--num_epochs', type=int, default=1)
 parser.add_argument('--optimizer', type=str, default='AdamW', choices=['AdamW', 'Adam'])
 parser.add_argument('--weight_decay', type=float, default=None)
 parser.add_argument('--adam_epsilon', type=float, default=1e-9)
@@ -120,7 +120,7 @@ parser.add_argument('--warmup_steps', type=int, default=50)
 
 # evaluation #
 parser.add_argument('--val_strategy', type=str, default='iteration', choices=['epoch', 'iteration'])
-parser.add_argument('--val_iterations', type=int, default=50)  # only for iteration val_strategy
+parser.add_argument('--val_iterations', type=int, default=50)
 parser.add_argument('--early_stopping', type=bool, default=True)
 parser.add_argument('--early_stopping_patience', type=int, default=3)
 parser.add_argument('--metric_ks', nargs='+', type=int, default=[1, 5, 10, 20, 50])
@@ -130,8 +130,8 @@ parser.add_argument('--use_wandb', type=str2bool, nargs='?', const=True, default
 ################
 # Model
 ################
-parser.add_argument('--model_code', type=str, default='ltcrec', choices=['ltcrec', 'ltcrec_ode'])
-parser.add_argument('--max_len', type=int, default=None)       # 序列长度
+parser.add_argument('--model_code', type=str, default='ltcrec_adode', choices=['ltcrec', 'ltcrec_ode', 'ltcrec_adode'])
+parser.add_argument('--max_len', type=int, default=None)
 parser.add_argument('--hidden_units', type=int, default=64)
 parser.add_argument('--num_blocks', type=int, default=4)
 parser.add_argument('--num_heads', type=int, default=2)
@@ -140,6 +140,14 @@ parser.add_argument('--dropout', type=float, default=0.3)
 parser.add_argument('--attn_dropout', type=float, default=0.3)
 parser.add_argument('--mask_prob', type=float, default=None)
 parser.add_argument('--ltc_epsilon', type=float, default=1e-6)
+parser.add_argument('--ode_unfolds', type=int, default=3, help='Number of ODE solver steps per interval')
+
+# ltcrec-adode
+parser.add_argument('--adode_atol', type=float, default=1e-3, help='Absolute tolerance for adaptive step')
+parser.add_argument('--adode_rtol', type=float, default=1e-4, help='Relative tolerance for adaptive step')
+parser.add_argument('--adode_min_step', type=float, default=1e-4, help='Minimum step size')
+parser.add_argument('--adode_max_step', type=float, default=1.0, help='Maximum step size')
+parser.add_argument('--adode_max_steps', type=int, default=50, help='Maximum steps per interval')
 
 
 args = parser.parse_args()
