@@ -105,7 +105,7 @@ parser.add_argument('--max_time_span', type=float, default=0.0)
 # device #
 parser.add_argument('--device', type=str, default='cuda', choices=['cpu', 'cuda'])
 # optimizer & lr#
-parser.add_argument('--num_epochs', type=int, default=1)
+parser.add_argument('--num_epochs', type=int, default=200)
 parser.add_argument('--optimizer', type=str, default='AdamW', choices=['AdamW', 'Adam'])
 parser.add_argument('--weight_decay', type=float, default=None)
 parser.add_argument('--adam_epsilon', type=float, default=1e-9)
