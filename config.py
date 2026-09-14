@@ -105,12 +105,12 @@ parser.add_argument('--max_time_span', type=float, default=0.0)
 # device #
 parser.add_argument('--device', type=str, default='cuda', choices=['cpu', 'cuda'])
 # optimizer & lr#
-parser.add_argument('--num_epochs', type=int, default=200)
+parser.add_argument('--num_epochs', type=int, default=20)
 parser.add_argument('--optimizer', type=str, default='AdamW', choices=['AdamW', 'Adam'])
 parser.add_argument('--weight_decay', type=float, default=None)
 parser.add_argument('--adam_epsilon', type=float, default=1e-9)
 parser.add_argument('--momentum', type=float, default=None)
-parser.add_argument('--lr', type=float, default=0.001)
+parser.add_argument('--lr', type=float, default=0.003)
 parser.add_argument('--max_grad_norm', type=float, default=5.0)
 parser.add_argument('--enable_lr_schedule', type=bool, default=True)
 parser.add_argument('--decay_step', type=int, default=10000)
@@ -130,7 +130,7 @@ parser.add_argument('--use_wandb', type=str2bool, nargs='?', const=True, default
 ################
 # Model
 ################
-parser.add_argument('--model_code', type=str, default='ltcrec_adode', choices=['ltcrec', 'ltcrec_ode', 'ltcrec_adode'])
+parser.add_argument('--model_code', type=str, default='ltcrec', choices=['ltcrec', 'ltcrec_ode', 'ltcrec_adode'])
 parser.add_argument('--max_len', type=int, default=None)
 parser.add_argument('--hidden_units', type=int, default=64)
 parser.add_argument('--num_blocks', type=int, default=4)
