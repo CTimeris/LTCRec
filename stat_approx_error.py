@@ -18,7 +18,7 @@ args.device = 'cuda' if torch.cuda.is_available() else 'cpu'
 print("Device:", args.device)
 
 SAMPLE_EVERY = 5
-ODE_STEPS = 3
+ODE_STEPS = 10
 
 train_loader, val_loader, test_loader = dataloader_factory(args)
 print("num_users:", args.num_users, "num_items:", args.num_items)
