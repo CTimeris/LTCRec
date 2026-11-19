@@ -2,12 +2,19 @@
 Code of our paper: Liquid Time-continous Network for Sequential Recommendation.
 
 Reference our work:
+
 @article{cai2026liquid,
+
   title={Liquid Time-Continuous Networks for Sequential Recommendation},
+  
   author={Cai, Tong and Zhang, Yihao and Yuan, Meng and He, Qinyang and Zhou, Wei and Zhu, Xiaofei},
+  
   journal={IEEE Transactions on Knowledge and Data Engineering},
+  
   year={2026},
+  
   publisher={IEEE}
+  
 }
 
 quick start: python train.py
